@@ -39,7 +39,7 @@ metric_thread_pitch = {
 def main():
     """Main function"""
     with open("output.csv", mode="w", newline="") as csvfile:
-        csv_writer = csv.writer(csvfile, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL)
+        csv_writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         # Write the header row
         csv_writer.writerow(["Screw","Pitch (Fractional)","Pitch (Decimal)", "Indexes", "Cyclic"])
         
