@@ -39,20 +39,17 @@ def main():
     """Main function"""
     print("Metric threads on the DialIndicator:")
     for screw, pitch in metric_thread_pitch.items():
-        print(f"{screw}: {pitch} mm  = {pitch.numerator/pitch.denominator} mm")
-        pitchList = []
+        print(f"{screw}: {pitch} mm  = {pitch.numerator/pitch.denominator} mm  Indexes:",end="")
         i=Fraction(0,1)
-        while (i*pitch) < Fraction(4,1):
-            pitchList.append(i*pitch)
+        while (i*pitch) <= Fraction(4,1):
+            if (((i*pitch)/Fraction(1,10)).is_integer()):
+                if  ((i*pitch) == Fraction(4,1)):
+                    print("  Cyclic.",end="")
+                else:
+                    print(f" {(i*pitch)/Fraction(1,10)}",end="")
             i += Fraction(1,1)
+        print("")
        
-        i=Fraction(0,1)
-        num=0
-        while (i*pitch) < Fraction(4,1):
-            if i in pitchList:
-                print(f"Number {num} : {i} = {i.numerator/i.denominator} is in the list")
-            i += Fraction(1,10);
-            num+=1
 
 
 if __name__ == "__main__":
