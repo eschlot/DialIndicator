@@ -1,4 +1,5 @@
 import io
+import csv
 from fractions import Fraction
 from decimal import Decimal
 
@@ -37,20 +38,25 @@ metric_thread_pitch = {
 
 def main():
     """Main function"""
-    print("Metric threads on the DialIndicator:")
-    for screw, pitch in metric_thread_pitch.items():
-        print(f"{screw}: {pitch} mm  = {pitch.numerator/pitch.denominator} mm  Indexes:",end="")
-        i=Fraction(0,1)
-        while (i*pitch) <= Fraction(4,1):
-            if (((i*pitch)/Fraction(1,10)).is_integer()):
-                if  ((i*pitch) == Fraction(4,1)):
-                    print("  Cyclic.",end="")
-                else:
-                    print(f" {(i*pitch)/Fraction(1,10)}",end="")
-            i += Fraction(1,1)
-        print("")
-       
-
+    with open("output.csv", mode="w", newline="") as csvfile:
+        csv_writer = csv.writer(csvfile, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL)
+        # Write the header row
+        csv_writer.writerow(["Screw","Pitch (Fractional)","Pitch (Decimal)", "Indexes", "Cyclic"])
+        
+        for screw, pitch in metric_thread_pitch.items():
+            indexes = []
+            cyclic = "No"
+            i = Fraction(0, 1)
+            while (i * pitch) <= Fraction(4, 1):
+                if ((i * pitch) / Fraction(1, 10)).is_integer():
+                    if (i * pitch) == Fraction(4, 1):
+                        cyclic = "Yes"
+                    else:
+                        indexes.append(str((i * pitch) / Fraction(1, 10)))
+                i += Fraction(1, 1)
+            
+            # Write the row to the CSV file
+            csv_writer.writerow([f"{screw}",f"{pitch} mm ",f"{pitch.numerator/pitch.denominator} mm", " ".join(indexes), cyclic])
 
 if __name__ == "__main__":
     main()
