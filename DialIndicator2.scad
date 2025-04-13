@@ -16,7 +16,7 @@ union()
 
   translate([0,0,30])   { cyl(l=60, d=10, $fn=360);} // axle
   // 69-16/2-19 --> 69 Base position of the center of the body with text - half of the size of that - the height of the cylinder itself
-  translate([0,0,69-16/2-19])   { cylinder(h=19, r1=5,  r2=24 );}
+  translate([0,0,69-16/2-19])   { cylinder(h=19, r1=5,  r2=24, $fn=360 );}
 
   translate([0,0,69]) { 
     union(){
